@@ -1,0 +1,160 @@
+﻿@model movie.Models.Movie
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Inserir Vídeo</h1>
+
+<h4>Video</h4>
+
+<hr />
+@*--------Botão de Voltar--------*@
+<div class="col-md-6">
+    <button type="button" class="btn border border-secondary" style="background-color: gray; color: white;" onclick="location.href='@Url.Action("Index", "Movies")'"><b>Voltar</b></button>
+</div>
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @*--------Arquivo--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Arquivo de Vídeo</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input type="file" name="arquivo" class="form-control" />
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Autor--------*@
+    <div class="row mt-2">
+    <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Autor</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Autor" class="form-control" />
+            <span asp-validation-for="Autor" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Local de Gravação--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Local de Gravação</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="LocalGravacao" class="form-control" />
+            <span asp-validation-for="LocalGravacao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Tipo do Vídeo--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Tipo do Vídeo</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="TipoVideo" class="form-control" />
+            <span asp-validation-for="TipoVideo" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Duração--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Duração do Video</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Duracao" class="form-control" />
+            <span asp-validation-for="Duracao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Assunto--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Assunto</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Assunto" class="form-control" />
+            <span asp-validation-for="Assunto" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Descrição--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Descrição do Video</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------------------------------------------------------------------------------------------------------------*@
+
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input type="submit" value="Create" class="btn border border-secondary" style="width:100%; background-color:green" />
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
