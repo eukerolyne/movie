@@ -11,7 +11,7 @@ using movie.Models;
 namespace movie.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20221001214834_rascunho")]
+    [Migration("20221003164714_rascunho")]
     partial class rascunho
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
