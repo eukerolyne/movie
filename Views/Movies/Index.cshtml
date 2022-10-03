@@ -3,14 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Adicionar novo vídeo</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-striped">
+    <thead class="table-dark align-content-center">
         <tr>
             <th></th>
 
@@ -46,9 +43,9 @@
                     @Html.DisplayFor(modelItem => item.Autor)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.VideoId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.VideoId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.VideoId">Delete</a>
+                <a class="btn" style="background-color:darkgrey; color: black" asp-action="Edit" asp-route-id="@item.VideoId">Editar</a> |
+                <a class="btn" style="background-color:darkgreen; color: white" asp-action="Details" asp-route-id="@item.VideoId">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.VideoId">Excluir</a>
                 </td>
             </tr>
         }

@@ -15,12 +15,10 @@
 
 <div class="d-block p-2 bg text-black" style="background-color: lightgrey">
 
-
-
     @*-------Visualização do Vídeo-------*@
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-md-2"></div>
-        <div class=" col-md-8">
+        <div class=" col-md-4">
             <span><b>Vídeo Armazenado : </b></span>
         </div>
     </div>
@@ -153,6 +151,7 @@
     </div>
 </div>
 
+<hr />
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.VideoId">Editar</a>
+    <a asp-action="Edit"  class="btn btn-primary" asp-route-id="@Model?.VideoId"><b>Editar</b></a> 
 </div>

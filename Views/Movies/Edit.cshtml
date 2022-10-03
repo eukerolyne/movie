@@ -4,66 +4,157 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Movie</h4>
+<h1>Editar</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="VideoId" />
-            <div class="form-group">
-                <label asp-for="Autor" class="control-label"></label>
-                <input asp-for="Autor" class="form-control" />
-                <span asp-validation-for="Autor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LocalGravacao" class="control-label"></label>
-                <input asp-for="LocalGravacao" class="form-control" />
-                <span asp-validation-for="LocalGravacao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoVideo" class="control-label"></label>
-                <input asp-for="TipoVideo" class="form-control" />
-                <span asp-validation-for="TipoVideo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Extensao" class="control-label"></label>
-                <input asp-for="Extensao" class="form-control" />
-                <span asp-validation-for="Extensao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Duracao" class="control-label"></label>
-                <input asp-for="Duracao" class="form-control" />
-                <span asp-validation-for="Duracao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Assunto" class="control-label"></label>
-                <input asp-for="Assunto" class="form-control" />
-                <span asp-validation-for="Assunto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+@*--------Botão de Voltar--------*@
+<div class="col-md-6">
+    <button type="button" class="btn border border-secondary" style="background-color: gray; color: white;" onclick="location.href='@Url.Action("Index", "Movies")'"><b>Voltar</b></button>
 </div>
+<br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<h3 style="position:center">@Html.DisplayFor(model => model.Titulo)</h3>
+
+<form asp-action="Edit" enctype="multipart/form-data" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    @*--------Arquivo--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Arquivo de Vídeo</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input type="file" name="arquivo" class="form-control" />
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Autor--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Autor</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Autor" class="form-control" />
+            <span asp-validation-for="Autor" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Local de Gravação--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Local de Gravação</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="LocalGravacao" class="form-control" />
+            <span asp-validation-for="LocalGravacao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Tipo do Vídeo--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Tipo do Vídeo</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="TipoVideo" class="form-control" />
+            <span asp-validation-for="TipoVideo" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Duração--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Duração do Video</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Duracao" class="form-control" />
+            <span asp-validation-for="Duracao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Assunto--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Assunto</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Assunto" class="form-control" />
+            <span asp-validation-for="Assunto" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------Descrição--------*@
+    <div class="row mt-2">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <span>Descrição do Video</span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    @*--------------------------------------------------------------------------------------------------------------*@
+
+    <br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <input type="submit" value="Edit" class="btn border border-secondary" style="width:100%; background-color:lightgreen" />
+        </div>
+    </div>
+</form>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
