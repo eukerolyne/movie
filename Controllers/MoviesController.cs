@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using movie.Models;
+using WMPLib;
+
 
 namespace movie.Controllers
 {
@@ -63,6 +65,11 @@ namespace movie.Controllers
             {
                 movie.Titulo = fileName;
                 movie.Extensao = VerificaExtensao(fileName);
+
+                var player = new WindowsMediaPlayer();
+                var clip = player.newMedia(filePath);
+                var fileCum = clip.duration.ToString();
+                movie.Duracao = fileCum;
 
                 using (var localFile = System.IO.File.OpenWrite(filePath))
                 using (var uploadedFile = arquivo.OpenReadStream())
