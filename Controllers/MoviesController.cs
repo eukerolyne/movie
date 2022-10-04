@@ -118,34 +118,53 @@ namespace movie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VideoId,Autor,Titulo,LocalGravacao,TipoVideo,Extensao,Duracao,Assunto,Descricao")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("VideoId,Autor,Titulo,LocalGravacao,TipoVideo,Extensao,Duracao,Assunto,Descricao")] Movie movie, IFormFile arquivo)
         {
-            if (id != movie.VideoId)
+            if (arquivo != null)
             {
-                return NotFound();
-            }
+                //// INFORMAÇÕES DO ARQUIVO DO BANCO DE DADOS .
+                //var dataImagemAntes = await context.Imagens.FindAsync(id);
+                var dataImagemAntes = await _context.movies.FindAsync(id);
+                var nomeArquivoAntes = dataImagemAntes.Titulo; // Nome do arquivo que foi recebido .
 
-            if (ModelState.IsValid)
-            {
-                try
+                // INFORMAÇÕES DO ARQUIVO DO FORMULÁRIO .
+                var nomeArquivoAtual = arquivo.FileName;
+
+                if (nomeArquivoAtual != nomeArquivoAntes)
                 {
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MovieExists(movie.VideoId))
+                    var nomeArquivoAtual_comURL = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/video/", nomeArquivoAtual);
+                    System.IO.File.Delete(nomeArquivoAtual_comURL);
+
+                    using (var localFile = System.IO.File.OpenWrite(nomeArquivoAtual_comURL))
+                    using (var uploadedFile = arquivo.OpenReadStream())
                     {
-                        return NotFound();
+                        uploadedFile.CopyTo(localFile);
                     }
-                    else
-                    {
-                        throw;
-                    }
+                    dataImagemAntes.Titulo = nomeArquivoAtual;
+                    dataImagemAntes.Extensao = VerificaExtensao(nomeArquivoAtual);
+
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/video/", nomeArquivoAtual);
+
+                    var player = new WindowsMediaPlayer();
+                    var clip = player.newMedia(filePath);
+                    var fileCum = clip.duration.ToString();
+                    dataImagemAntes.Duracao = fileCum;
+
+                    dataImagemAntes.Autor = movie.Autor;
+                    dataImagemAntes.LocalGravacao = movie.LocalGravacao;
+                    dataImagemAntes.Assunto = movie.Assunto;
+                    dataImagemAntes.Descricao = movie.Descricao;
+                    dataImagemAntes.TipoVideo = movie.TipoVideo;
                 }
+                _context.Add(movie);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(movie);
+            movie.Descricao = movie.Descricao;
+
+            _context.Update(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Movies/Delete/5
