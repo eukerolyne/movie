@@ -1,69 +1,92 @@
 ﻿@model movie.Models.Movie
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Excluir";
+    var endBase = Directory.GetCurrentDirectory();
 }
 
-<h1>Delete</h1>
+<h1 style="text-align:center">Excluir</h1>
+<hr />
+@*--------Botão de Voltar--------*@
+<div class="col-md-6">
+    <button type="button" class="btn border border-secondary" style="background-color: gray; color: white;" onclick="location.href='@Url.Action("Index", "Movies")'"><b>Voltar</b></button>
+</div>
+<br />
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Você tem certeza que quer excluir isso?</h3>
+
+
+
+<br />
+<h5>@Html.DisplayFor(model => model.Titulo)</h5>
+<br />
+
+
 <div>
-    <h4>Movie</h4>
-    <hr />
+    @*class="d-block p-2 bg text-black text-center" style="background-color: lightgrey; text-align:center"*@
+    @*-------Visualização do Vídeo-------*@
+    <span>Vídeo Armazenado : </span>
+    <div class="row">
+        <div class=" col">
+            <video width="520" height="440" controls> <source src="~/video/@Model.Titulo" type="video/mp4" /> </video>
+            <br />
+        </div>
+    </div>
+
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Autor)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Autor)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Titulo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Titulo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LocalGravacao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LocalGravacao)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.TipoVideo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TipoVideo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Extensao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Extensao)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Duracao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Duracao)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Assunto)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Assunto)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Descricao)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="VideoId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
 </div>
+
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="VideoId" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

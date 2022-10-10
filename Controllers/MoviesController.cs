@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using movie.Models;
 using WMPLib;
 
-
 namespace movie.Controllers
 {
     public class MoviesController : Controller
@@ -23,7 +22,7 @@ namespace movie.Controllers
         // GET: Movies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.movies.ToListAsync());
+              return View(await _context.movies.ToListAsync());
         }
 
         // GET: Movies/Details/5
@@ -96,7 +95,6 @@ namespace movie.Controllers
             }
             return "none";
         }
-
         // GET: Movies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -118,53 +116,34 @@ namespace movie.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("VideoId,Autor,Titulo,LocalGravacao,TipoVideo,Extensao,Duracao,Assunto,Descricao")] Movie movie, IFormFile arquivo)
+        public async Task<IActionResult> Edit(int id, [Bind("VideoId,Autor,Titulo,LocalGravacao,TipoVideo,Extensao,Duracao,Assunto,Descricao")] Movie movie)
         {
-            if (arquivo != null)
+            if (id != movie.VideoId)
             {
-                //// INFORMAÇÕES DO ARQUIVO DO BANCO DE DADOS .
-                //var dataImagemAntes = await context.Imagens.FindAsync(id);
-                var dataImagemAntes = await _context.movies.FindAsync(id);
-                var nomeArquivoAntes = dataImagemAntes.Titulo; // Nome do arquivo que foi recebido .
+                return NotFound();
+            }
 
-                // INFORMAÇÕES DO ARQUIVO DO FORMULÁRIO .
-                var nomeArquivoAtual = arquivo.FileName;
-
-                if (nomeArquivoAtual != nomeArquivoAntes)
+            if (ModelState.IsValid)
+            {
+                try
                 {
-                    var nomeArquivoAtual_comURL = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/video/", nomeArquivoAtual);
-                    System.IO.File.Delete(nomeArquivoAtual_comURL);
-
-                    using (var localFile = System.IO.File.OpenWrite(nomeArquivoAtual_comURL))
-                    using (var uploadedFile = arquivo.OpenReadStream())
-                    {
-                        uploadedFile.CopyTo(localFile);
-                    }
-                    dataImagemAntes.Titulo = nomeArquivoAtual;
-                    dataImagemAntes.Extensao = VerificaExtensao(nomeArquivoAtual);
-
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/video/", nomeArquivoAtual);
-
-                    var player = new WindowsMediaPlayer();
-                    var clip = player.newMedia(filePath);
-                    var fileCum = clip.duration.ToString();
-                    dataImagemAntes.Duracao = fileCum;
-
-                    dataImagemAntes.Autor = movie.Autor;
-                    dataImagemAntes.LocalGravacao = movie.LocalGravacao;
-                    dataImagemAntes.Assunto = movie.Assunto;
-                    dataImagemAntes.Descricao = movie.Descricao;
-                    dataImagemAntes.TipoVideo = movie.TipoVideo;
+                    _context.Update(movie);
+                    await _context.SaveChangesAsync();
                 }
-                _context.Add(movie);
-                await _context.SaveChangesAsync();
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!MovieExists(movie.VideoId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            movie.Descricao = movie.Descricao;
-
-            _context.Update(movie);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View(movie);
         }
 
         // GET: Movies/Delete/5
@@ -199,14 +178,14 @@ namespace movie.Controllers
             {
                 _context.movies.Remove(movie);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MovieExists(int id)
         {
-            return _context.movies.Any(e => e.VideoId == id);
+          return _context.movies.Any(e => e.VideoId == id);
         }
     }
 }

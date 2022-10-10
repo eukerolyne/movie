@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<movie.Models.Movie>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inicio";
 }
 <p>
     <a asp-action="Create" class="btn btn-success">Adicionar novo vídeo</a>
@@ -43,11 +43,31 @@
                     @Html.DisplayFor(modelItem => item.Autor)
                 </td>
                 <td>
-                <a class="btn" style="background-color:darkgrey; color: black" asp-action="Edit" asp-route-id="@item.VideoId">Editar</a> |
-                <a class="btn" style="background-color:darkgreen; color: white" asp-action="Details" asp-route-id="@item.VideoId">Detalhes</a> |
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.VideoId">Excluir</a>
+                    <a class="btn" style="background-color:darkgrey; color: black" asp-action="Edit" asp-route-id="@item.VideoId">Editar</a> |
+                    <a class="btn" style="background-color:darkgreen; color: white" asp-action="Details" asp-route-id="@item.VideoId">Detalhes</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.VideoId">Excluir</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+@*@foreach (var item in Model)
+{
+    <div class="card" style="width: 20rem;position:relative;float:left;left:0px; margin-left:3px">
+        @*<video width="100%" controls>
+            <source src="~/videos/@Html.DisplayFor(modelItem => item.Titulo)" type="video/mp4" style="width: 100%;">
+            </video>
+        <video width="100%" controls><source src="~/video/@item.Titulo" type="video/mp4"> </video>
+        <div class="card-body">
+            <h5 class="card-title">@Html.DisplayFor(modelItem => item.Titulo)</h5>
+            <p class="card-text">@Html.DisplayFor(modelItem => item.Descricao)</p>
+
+        </div>
+        <a class="btn" style="background-color:darkgrey; color: black" asp-action="Edit" asp-route-id="@item.VideoId">Editar</a>
+        <a class="btn" style="background-color:darkgreen; color: white" asp-action="Details" asp-route-id="@item.VideoId">Detalhes</a>
+        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.VideoId">Excluir</a>
+
+    </div>*@
+
+}

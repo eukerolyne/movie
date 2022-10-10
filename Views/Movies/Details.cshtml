@@ -1,11 +1,10 @@
 ﻿@model movie.Models.Movie
-
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes do Vídeo";
     var endBase = Directory.GetCurrentDirectory();
 }
 
-<h1>@Html.DisplayFor(model => model.Titulo)</h1>
+<h1 style="text-align:center">@Html.DisplayFor(modelItem => Model.Titulo)</h1>
 <hr />
 @*--------Botão de Voltar--------*@
 <div class="col-md-6">
@@ -13,145 +12,70 @@
 </div>
 <br />
 
-<div class="d-block p-2 bg text-black" style="background-color: lightgrey">
+<div class=container-flex style="text-align:center">
 
-    @*-------Visualização do Vídeo-------*@
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-4">
-            <span><b>Vídeo Armazenado : </b></span>
+        @*-------Visualização do Vídeo-------*@
+        <div class="container">
+            <div class="videos">
+                <video width="520" height="440" controls> <source src="~/video/@Model.Titulo" type="video/mp4" /> </video>
+                <br />
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <video width="520" height="440" controls> <source src="~/video/@Model.Titulo" type="video/mp4" /> </video>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
 
-    @*-------Autor-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Autor : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.Autor)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Local de Gravação-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Local de Gravação : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.LocalGravacao)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Tipo de vídeo-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Tipo de vídeo : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.TipoVideo)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Extensão do arquivo-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Extensão do arquivo : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.Extensao)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Duração do vídeo-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Duração do vídeo : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.Duracao)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Assunto-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Assunto : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.Assunto)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-
-    @*-------Descrição-------*@
-    <div class="row mt-4">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span><b>Descrição : </b></span>
-        </div>
-        <div class="col-md-2"></div>
-    </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class=" col-md-8">
-            <span>@Html.DisplayFor(model => model.Descricao)</span>
-            <br />
-        </div>
-        <div class="col-md-2"></div>
-    </div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Autor)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Autor)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Titulo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.LocalGravacao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.LocalGravacao)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TipoVideo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.TipoVideo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Extensao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Extensao)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Duracao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Duracao)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Assunto)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Assunto)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Descricao)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(modelItem => Model.Descricao)
+            </dd>
+        </dl>
+        <div>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.VideoId"><b>Editar</b></a>
+</div>
+    
 </div>
 
-<hr />
-<div>
-    <a asp-action="Edit"  class="btn btn-primary" asp-route-id="@Model?.VideoId"><b>Editar</b></a> 
-</div>
+
